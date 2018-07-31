@@ -130,5 +130,8 @@ class DBHelper {
         return $result[0];
     }
 
+    function f2 (){
+
+    }
 
 }
