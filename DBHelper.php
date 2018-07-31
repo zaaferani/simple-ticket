@@ -117,9 +117,6 @@ class DBHelper {
         return $result[0];
     }
 
-    function f(){
-
-    }
     public function getUser($id){
         $res = $this->conn->prepare("SELECT * FROM users WHERE id = :id;");
         $res->execute([
@@ -132,9 +129,4 @@ class DBHelper {
         }
         return $result[0];
     }
-
-    function f2 (){
-
-    }
-
 }
