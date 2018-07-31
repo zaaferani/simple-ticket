@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <div class="form-group">
                 <label for="inputOldPassword3" class="col-sm-4 control-label">Old Password</label>
                 <div class="col-sm-8">
-                    <input name="old-password" type="password" class="form-control" id="inputPassword3" placeholder="Empty if wont change password">
+                    <input name="old-password" type="password" class="form-control" id="inputOldPassword3" placeholder="Empty if wont change password">
                 </div>
             </div>
             <div class="form-group">
@@ -108,3 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </form>
     </div>
 </div>
+
+<?php
+require 'footer.php';
+?>
