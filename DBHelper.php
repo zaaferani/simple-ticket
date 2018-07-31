@@ -129,4 +129,28 @@ class DBHelper {
         }
         return $result[0];
     }
+
+    public function update($table, $entity, $where)
+    {
+        $set_fields = [];
+        $w_fields = [];
+        $param = [];
+        foreach ($entity as $k=>$v){
+            array_push($set_fields, "$k = :$k");
+            $param[":$k"] = $v;
+        }
+
+        $set_fields = join(" , " , $set_fields);
+        foreach ($where as $k=>$v){
+            array_push($w_fields, "$k = :$k");
+            $param[":$k"] = $v;
+        }
+        $w_fields = join(" AND " , $w_fields);
+        $res = $this->conn->prepare("
+            UPDATE $table SET $set_fields WHERE $w_fields;
+        ");
+
+        $res->execute($param);
+        return $res->errorCode();
+    }
 }

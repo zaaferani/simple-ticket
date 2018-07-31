@@ -13,8 +13,11 @@ function check_login($show_login=false){
     $l = isset($_SESSION['login']) && $_SESSION['login'] === true;
     if (!$show_login)
         return $l;
-    header('location: /login.php');
-    die;
+    if (!$l){
+        header('location: /login.php');
+        die;
+    }
+    return $l;
 }
 ?>
 </head>
