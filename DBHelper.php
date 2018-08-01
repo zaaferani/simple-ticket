@@ -168,8 +168,13 @@ class DBHelper {
         $param = [];
         if ($where) {
             foreach ($where as $k => $v) {
-                array_push($w_fields, "$k = :$k");
-                $param[":$k"] = $v;
+                if ($v === null) {
+                    array_push($w_fields, "$k IS NULL");
+                } else {
+                    $opr = (strpos('%', $v) >= 0 || strpos('_', $v) >= 0) ? ' LIKE ' : ' = ';
+                    array_push($w_fields, "$k $opr :$k");
+                    $param[":$k"] = $v;
+                }
             }
             $w_fields = "WHERE " . join(" AND ", $w_fields);
         } else {
