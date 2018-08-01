@@ -47,6 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
+        <?php
+        if ($error){
+            foreach ($error as $item) {
+                ?>
+                <div class="alert alert-danger"><?php echo $item; ?></div>
+                <?php
+            }
+        }
+        ?>
         <form class="form-horizontal" action="/profile.php" method="post">
             <div class="form-group">
                 <label for="inputName3" class="col-sm-4 control-label">Name</label>
