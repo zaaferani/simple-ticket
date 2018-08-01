@@ -32,8 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             "name" => $_POST['name'],
             "family" => $_POST['family'],
             "sex" => $_POST['sex'],
+            "type" => $_POST['type'],
         ];
-        if ($_POST['old-password'] != ''){
+        if ($_POST['password'] != ''){
             $param['password'] = $_POST['password'];
         }
         $e = $db_helper->update("users", $param, ["id" => $user['id']]);
