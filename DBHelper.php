@@ -153,4 +153,41 @@ class DBHelper {
         $res->execute($param);
         return $res->errorCode();
     }
+
+    /**
+     * @param $table string name of table
+     * @param $fields array list of field name, use ['*'] for select all
+     * @param $where array|null key-value array
+     * @param $order_by string
+     * @return array|null
+     */
+    public function select($table, $fields=['*'], $where=null, $order_by="")
+    {
+        $fields = join(" , " , $fields);
+        $w_fields = [];
+        $param = [];
+        if ($where) {
+            foreach ($where as $k => $v) {
+                array_push($w_fields, "$k = :$k");
+                $param[":$k"] = $v;
+            }
+            $w_fields = "WHERE " . join(" AND ", $w_fields);
+        } else {
+            $w_fields = "";
+        }
+        $res = $this->conn->prepare("SELECT $fields FROM $table $w_fields $order_by;");
+
+        $res->execute($param);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        return $res->fetchAll();
+    }
+
+    /**
+     * @param $where array|null key-value array
+     * @return array|null
+     */
+    public function getUsers($where=null)
+    {
+        return $this->select("users", ['*'], $where);
+    }
 }

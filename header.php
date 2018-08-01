@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" href="assets/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap-theme.min.css">
 <?php
 
 session_start();
@@ -18,6 +18,17 @@ function check_login($show_login=false){
         die;
     }
     return $l;
+}
+
+function check_access($role='USER', $show_page=false){
+    $t = isset($_SESSION['user']) && $_SESSION['user']['type'] == $role;
+    if(!$show_page)
+        return $t;
+    if (!$t){
+        header('location: /403.php');
+        die;
+    }
+    return $t;
 }
 ?>
 </head>
@@ -54,11 +65,24 @@ function check_login($show_login=false){
                         echo "<li><a href=\"/login.php\">Login</a></li>";
                         echo "<li><a href=\"/register.php\">Register</a></li>";
                     } else {
+                        $menu = "";
+                        if (check_access('USER')){
+                            $menu .= "<li><a href=\"/new-ticket.php\">New Ticket</a></li>";
+                        }
+                        if (check_access('EXPERT')){
+                            $menu .= "<li><a href=\"/my-request.php\">My Requests</a></li>";
+                        }
+                        if (check_access('ADMIN')){
+                            $menu .= "<li><a href='/admin/users.php'>Users</a></li>";
+                            $menu .= "<li><a href=\"/requests.php\">Requests</a></li>";
+                        }
                         echo "
                     <li class=\"dropdown\">
                         <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">".$_SESSION['user']['name']." <span class=\"caret\"></span></a>
                         <ul class=\"dropdown-menu\">
                             <li><a href=\"/profile.php\">Profile</a></li>
+                            <li role=\"separator\" class=\"divider\"></li>
+                            $menu
                             <li role=\"separator\" class=\"divider\"></li>
                             <li><a href=\"/logout.php\">Logout</a></li>
                         </ul>

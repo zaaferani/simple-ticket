@@ -11,4 +11,4 @@ session_destroy();
 session_start();
 
 $_SESSION['message'] = 'logout successful';
-header('location: index.php');
+header('location: /index.php');

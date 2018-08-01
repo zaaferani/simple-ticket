@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['login'] = true;
         $_SESSION['user'] = $res;
         $_SESSION['message'] = "$res[family], Welcome!";
-        header('location: index.php');
+        header('location: /index.php');
         die;
     } else {
         $error = true;
@@ -58,3 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </form>
     </div>
 </div>
+
+<?php
+require_once 'footer.php';
+?>
