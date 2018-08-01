@@ -130,6 +130,7 @@ class DBHelper {
         return $result[0];
     }
 
+
     public function update($table, $entity, $where)
     {
         $set_fields = [];
