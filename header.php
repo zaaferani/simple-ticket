@@ -7,7 +7,7 @@
 session_start();
 require_once 'DBHelper.php';
 
-$db_helper = new DBHelper('localhost', 'simple_ticket', 'root', '');
+$db_helper = new DBHelper('localhost', 'simple_ticket', 'hassan', '123456');
 
 function check_login($show_login=false){
     $l = isset($_SESSION['login']) && $_SESSION['login'] === true;
